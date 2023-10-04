@@ -15,42 +15,44 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.w(TAG_ACTIVITY, "onCreate()");
+        Log.w(TAG_ACTIVITY,"onCreate()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.w(TAG_ACTIVITY, "onDestroy()");
+        Log.w(TAG_ACTIVITY,"onDestroy()");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.w(TAG_ACTIVITY, "onStart()");
+        Log.w(TAG_ACTIVITY,"onStart()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.w(TAG_ACTIVITY, "onStop()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.w(TAG_ACTIVITY, "onResume()");
+        Log.w(TAG_ACTIVITY,"onStop()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.w(TAG_ACTIVITY, "onPause()");
+        Log.w(TAG_ACTIVITY,"onPause()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.w(TAG_ACTIVITY,"onResume()");
     }
 
     public void doSomething(View view)
     {
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.putExtra("key0", "Hello from MainActivity!");
+
         startActivity(intent);
     }
 }
