@@ -16,26 +16,34 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+    static ArrayList<Movie> movieArrayList = new ArrayList<>();
+
     ActivityResultLauncher<Intent> startActivity;
-    static ArrayList<Movie> movies = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-                   //manage activity response coming from other activities
                     @Override
                     public void onActivityResult(ActivityResult result) {
+                        Log.d(TAG, "onActivityResult");
                         int resultCode = result.getResultCode();
-                        if (resultCode == RESULT_OK) {
+                        if(resultCode == RESULT_OK) {
                             Intent data = result.getData();
-                            Movie movie = data.getParcelableExtra("movie");
-
-                            if(!movies.contains(movie))
-                                movies.add(movie);
-                            Toast.makeText(getApplicationContext(), "Movie:" + movie, Toast.LENGTH_LONG).show();
-                            Log.d("MainActivity", "onActivityResult");
+                            Bundle extras = data.getExtras();
+                            Movie movie = extras.getParcelable("movie");
+                            if (movieArrayList.contains(movie)) {
+                                int index = movieArrayList.indexOf(movie);
+                                movieArrayList.remove(index);
+                                movieArrayList.add(movie);
+                                Toast.makeText(getApplicationContext(), "Movie updated!", Toast.LENGTH_LONG).show();
+                            } else {
+                                movieArrayList.add(movie);
+                                Toast.makeText(getApplicationContext(), "Movie added: " + movie, Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 });
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addMovie(View view)
     {
-        Intent intent = new Intent(MainActivity.this, MovieActivity.class);
+        Intent intent = new Intent(MainActivity.this,MovieActivity.class);
 //        startActivity(intent);
         startActivity.launch(intent);
     }
