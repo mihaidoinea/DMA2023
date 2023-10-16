@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnAddMovie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="addMovie"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnChangeMovie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="99dp"
@@ -26,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMovie"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

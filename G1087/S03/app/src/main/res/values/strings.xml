@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">S03</string>
+    <string name="title">Title</string>
+    <string name="movie_title">Movie title</string>
+    <string name="genre">Genre</string>
+    <string name="budget">Budget</string>
+    <string name="movie_budget">Movie budget</string>
+    <string name="duration">Duration</string>
+    <string name="save_movie">Save movie</string>
+
+    <string-array name="movieGenre">
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Comedy</item>
+        <item>Drama</item>
+    </string-array>
 </resources>

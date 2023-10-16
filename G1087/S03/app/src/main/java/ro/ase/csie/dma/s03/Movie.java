@@ -4,12 +4,28 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Objects;
 
 public class Movie implements Parcelable {
     String movieName;
     String movieGenre;
     Integer movieDuration;
     Double movieBudget;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(getMovieName(), movie.getMovieName()) && Objects.equals(getMovieGenre(), movie.getMovieGenre()) && Objects.equals(getMovieDuration(), movie.getMovieDuration()) && Objects.equals(getMovieBudget(), movie.getMovieBudget());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMovieName(), getMovieGenre(), getMovieDuration(), getMovieBudget());
+    }
 
     protected Movie(Parcel in) {
         movieName = in.readString();

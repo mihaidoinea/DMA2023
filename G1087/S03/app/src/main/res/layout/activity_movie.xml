@@ -16,15 +16,15 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="@string/title" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:hint="Movie name" />
+            android:hint="@string/movie_title" />
 
     </LinearLayout>
 
@@ -37,12 +37,13 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genre" />
+            android:text="@string/genre" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spGenre"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="48dp"
+            android:entries="@array/movieGenre"/>
 
     </LinearLayout>
 
@@ -55,15 +56,15 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Budget" />
+            android:text="@string/budget" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/etBudget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="12"
             android:inputType="numberDecimal"
-            android:hint="Movie budget"/>
+            android:hint="@string/movie_budget"/>
 
     </LinearLayout>
 
@@ -76,10 +77,10 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duration" />
+            android:text="@string/duration" />
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/sbDuration"
             android:layout_width="match_parent"
             android:min="0"
             android:max="150"
@@ -88,10 +89,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSaveMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="saveMovie"
-        android:text="Save movie" />
+        android:text="@string/save_movie" />
 
 </LinearLayout>
