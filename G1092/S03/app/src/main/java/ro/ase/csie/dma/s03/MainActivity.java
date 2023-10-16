@@ -11,13 +11,14 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> startActivity;
-    ArrayList<Movie> movies = new ArrayList<>();
+    static ArrayList<Movie> movies = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent data = result.getData();
                             Movie movie = data.getParcelableExtra("movie");
                             movies.add(movie);
-                            Log.d("MainActivity", "Movie: " + movie);
+                            Toast.makeText(getApplicationContext(), "Movie:" + movie, Toast.LENGTH_LONG).show();
+                            Log.d("MainActivity", "onActivityResult");
                         }
                     }
                 });

@@ -39,13 +39,11 @@
             android:layout_height="wrap_content"
             android:text="Genre" />
 
-        <EditText
-            android:id="@+id/editTextText2"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Movie genre"
-            android:inputType="text" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -81,13 +79,11 @@
             android:layout_height="wrap_content"
             android:text="Duration" />
 
-        <EditText
-            android:id="@+id/editTextNumber1"
-            android:layout_width="match_parent"
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Movie duration"
-            android:inputType="number" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
