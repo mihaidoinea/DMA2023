@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addMovie(View view)
     {
-        Intent intent = new Intent(MainActivity.this, AddMovie.class);
+        Intent intent = new Intent(MainActivity.this, MovieActivity.class);
 //        startActivity(intent);
         startActivity.launch(intent);
     }

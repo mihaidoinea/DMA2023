@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddMovie">
+    tools:context=".MovieActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +18,11 @@
             android:text="Name" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Movie name"
+            android:hint="Movie title"
             android:inputType="text" />
 
     </LinearLayout>
@@ -40,7 +39,7 @@
             android:text="Genre" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spGenre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -59,7 +58,7 @@
             android:text="Budget" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/etBudget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -80,15 +79,17 @@
             android:text="Duration" />
 
         <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="wrap_content"
+            android:id="@+id/sbDuration"
+            android:min="0"
+            android:max="150"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="saveMovie"
