@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">S03</string>
+    <string-array name="movieGenre">
+        <item>Action</item>
+        <item>Drama</item>
+        <item>Adventure</item>
+    </string-array>
 </resources>

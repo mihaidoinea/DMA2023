@@ -9,6 +9,7 @@ public class Movie implements Parcelable {
     String movieName;
     String movieGenre;
     Double movieBudget;
+    Integer movieDuration;
 
     protected Movie(Parcel in) {
         movieName = in.readString();
@@ -17,6 +18,11 @@ public class Movie implements Parcelable {
             movieBudget = null;
         } else {
             movieBudget = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            movieDuration = null;
+        } else {
+            movieDuration = in.readInt();
         }
     }
 
@@ -31,6 +37,16 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieName='" + movieName + '\'' +
+                ", movieGenre='" + movieGenre + '\'' +
+                ", movieBudget=" + movieBudget +
+                ", movieDuration=" + movieDuration +
+                '}';
+    }
 
     public String getMovieName() {
         return movieName;
@@ -56,10 +72,19 @@ public class Movie implements Parcelable {
         this.movieBudget = movieBudget;
     }
 
-    public Movie(String movieName, String movieGenre, Double movieBudget) {
+    public Integer getMovieDuration() {
+        return movieDuration;
+    }
+
+    public void setMovieDuration(Integer movieDuration) {
+        this.movieDuration = movieDuration;
+    }
+
+    public Movie(String movieName, String movieGenre, Double movieBudget, Integer movieDuration) {
         this.movieName = movieName;
         this.movieGenre = movieGenre;
         this.movieBudget = movieBudget;
+        this.movieDuration = movieDuration;
     }
 
     @Override
@@ -77,14 +102,11 @@ public class Movie implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeDouble(movieBudget);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "movieName='" + movieName + '\'' +
-                ", movieGenre='" + movieGenre + '\'' +
-                ", movieBudget=" + movieBudget +
-                '}';
+        if (movieDuration == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(movieDuration);
+        }
     }
 }
