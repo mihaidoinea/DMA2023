@@ -55,4 +55,11 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
         startActivity.launch(intent);
     }
+
+    public void showMovies(View view) {
+        for(Movie movie: movieArrayList)
+        {
+            Log.d(TAG, "Movie: " + movie);
+        }
+    }
 }
