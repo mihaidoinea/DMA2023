@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,10 +23,24 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityLauncher;
 
+    private Button btnShow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnShow = findViewById(R.id.btnShow);
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(Movie movie: movieArrayList)
+                {
+                    Log.d(TAG, movie.toString());
+                }
+            }
+        });
+
         activityLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
