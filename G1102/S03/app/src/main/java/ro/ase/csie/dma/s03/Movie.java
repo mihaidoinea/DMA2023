@@ -5,12 +5,28 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 public class Movie implements Parcelable {
 
     String name;
     String genre;
     double budget;
     int duration;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Double.compare(movie.budget, budget) == 0 && duration == movie.duration && Objects.equals(name, movie.name) && Objects.equals(genre, movie.genre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, genre, budget, duration);
+    }
 
     protected Movie(Parcel in) {
         name = in.readString();
