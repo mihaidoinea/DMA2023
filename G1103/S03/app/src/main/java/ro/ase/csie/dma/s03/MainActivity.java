@@ -27,16 +27,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activityLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
 
-                    Log.d(MAIN_TAG, "onActivityResult");
-                    int resultCode = result.getResultCode();
-                    if(resultCode == RESULT_OK)
-                    {
-                        Intent data = result.getData();
-                        Movie movie = data.getParcelableExtra("keyParam");
-                        Toast.makeText(getApplicationContext(),"Movie: " + movie,Toast.LENGTH_LONG).show();
-                        movieArrayList.add(movie);
+                        Log.d(MAIN_TAG, "onActivityResult");
+                        int resultCode = result.getResultCode();
+                        if (resultCode == RESULT_OK) {
+                            Intent data = result.getData();
+                            Movie movie = data.getParcelableExtra("keyParam");
+                            Toast.makeText(MainActivity.this.getApplicationContext(), "Movie: " + movie, Toast.LENGTH_LONG).show();
+                            if(!movieArrayList.contains(movie)) {
+                                Toast.makeText(getApplicationContext(), "Movie inserted!", Toast.LENGTH_LONG).show();
+                                movieArrayList.add(movie);
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(), "Movie updated!", Toast.LENGTH_LONG).show();
+                                int index = movieArrayList.indexOf(movie);
+                                movieArrayList.add(index, movie);
+                            }
+                        }
                     }
                 });
     }
