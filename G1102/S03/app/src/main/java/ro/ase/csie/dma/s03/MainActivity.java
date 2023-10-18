@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent data = result.getData();
                             Movie movie = data.getParcelableExtra("keyParam");
                             Log.d(TAG, "Parameter: " + movie);
+                            if(!movieArrayList.contains(movie))
+                                movieArrayList.add(movie);
                             Toast.makeText(getApplicationContext(), "Saved movie:" + movie, Toast.LENGTH_LONG).show();
                         }
                     }
