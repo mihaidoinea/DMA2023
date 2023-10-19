@@ -13,6 +13,7 @@ public class Movie implements Parcelable {
     String genre;
     double budget;
     int duration;
+    byte rating;
 
     @Override
     public boolean equals(Object o) {
