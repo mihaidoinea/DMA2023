@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import java.util.Date;
+
 public class MovieActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etTitle;
@@ -42,7 +44,13 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Double budget = Double.valueOf(etBudget.getText().toString());
                 String genre = spGenre.getSelectedItem().toString();
                 Integer duration = sbDuration.getProgress();
-                Movie movie = new Movie(title, genre, budget, duration);
+
+                Date release = null;
+                Float rating = null;
+                Boolean oscar = null;
+                Boolean recommended = null;
+
+                Movie movie = new Movie(title, genre, budget, duration, release,rating, oscar, recommended);
                 Intent intent = new Intent();
                 intent.putExtra("movie",movie);
                 setResult(RESULT_OK, intent);

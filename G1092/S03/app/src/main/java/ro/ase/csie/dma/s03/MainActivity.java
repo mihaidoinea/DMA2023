@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
                             if(!movies.contains(movie))
                                 movies.add(movie);
+                            else
+                            {
+                                int index = movies.indexOf(movie);
+                                movies.remove(index);
+                                movies.add(movie);
+                            }
                             Toast.makeText(getApplicationContext(), "Movie:" + movie, Toast.LENGTH_LONG).show();
                             Log.d("MainActivity", "onActivityResult");
                         }

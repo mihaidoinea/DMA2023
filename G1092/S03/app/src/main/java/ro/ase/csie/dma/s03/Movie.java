@@ -5,25 +5,54 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
+import java.util.Objects;
+
 public class Movie implements Parcelable {
-    String movieName;
-    String movieGenre;
-    Double movieBudget;
-    Integer movieDuration;
+    String title;
+    String genre;
+    Double budget;
+    Integer duration;
+    Date release;
+    Float rating;
+    Boolean oscarWinner;
+    Boolean recommended ;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(title, movie.title) && Objects.equals(release, movie.release);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, release);
+    }
 
     protected Movie(Parcel in) {
-        movieName = in.readString();
-        movieGenre = in.readString();
+        title = in.readString();
+        genre = in.readString();
         if (in.readByte() == 0) {
-            movieBudget = null;
+            budget = null;
         } else {
-            movieBudget = in.readDouble();
+            budget = in.readDouble();
         }
         if (in.readByte() == 0) {
-            movieDuration = null;
+            duration = null;
         } else {
-            movieDuration = in.readInt();
+            duration = in.readInt();
         }
+        if (in.readByte() == 0) {
+            rating = null;
+        } else {
+            rating = in.readFloat();
+        }
+        byte tmpOscarWinner = in.readByte();
+        oscarWinner = tmpOscarWinner == 0 ? null : tmpOscarWinner == 1;
+        byte tmpRecommended = in.readByte();
+        recommended = tmpRecommended == 0 ? null : tmpRecommended == 1;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -41,50 +70,90 @@ public class Movie implements Parcelable {
     @Override
     public String toString() {
         return "Movie{" +
-                "movieName='" + movieName + '\'' +
-                ", movieGenre='" + movieGenre + '\'' +
-                ", movieBudget=" + movieBudget +
-                ", movieDuration=" + movieDuration +
+                "title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", budget=" + budget +
+                ", duration=" + duration +
+                ", release=" + release +
+                ", rating=" + rating +
+                ", oscarWinner=" + oscarWinner +
+                ", recommended=" + recommended +
                 '}';
     }
 
-    public String getMovieName() {
-        return movieName;
+    public Movie(String title, String genre, Double budget, Integer duration, Date release, Float rating, Boolean oscarWinner, Boolean recommended) {
+        this.title = title;
+        this.genre = genre;
+        this.budget = budget;
+        this.duration = duration;
+        this.release = release;
+        this.rating = rating;
+        this.oscarWinner = oscarWinner;
+        this.recommended = recommended;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
+    public String getTitle() {
+        return title;
     }
 
-    public String getMovieGenre() {
-        return movieGenre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setMovieGenre(String movieGenre) {
-        this.movieGenre = movieGenre;
+    public String getGenre() {
+        return genre;
     }
 
-    public Double getMovieBudget() {
-        return movieBudget;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public void setMovieBudget(Double movieBudget) {
-        this.movieBudget = movieBudget;
+    public Double getBudget() {
+        return budget;
     }
 
-    public Integer getMovieDuration() {
-        return movieDuration;
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 
-    public void setMovieDuration(Integer movieDuration) {
-        this.movieDuration = movieDuration;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public Movie(String movieName, String movieGenre, Double movieBudget, Integer movieDuration) {
-        this.movieName = movieName;
-        this.movieGenre = movieGenre;
-        this.movieBudget = movieBudget;
-        this.movieDuration = movieDuration;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public Date getRelease() {
+        return release;
+    }
+
+    public void setRelease(Date release) {
+        this.release = release;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public Boolean getOscarWinner() {
+        return oscarWinner;
+    }
+
+    public void setOscarWinner(Boolean oscarWinner) {
+        this.oscarWinner = oscarWinner;
+    }
+
+    public Boolean getRecommended() {
+        return recommended;
+    }
+
+    public void setRecommended(Boolean recommended) {
+        this.recommended = recommended;
     }
 
     @Override
@@ -94,19 +163,27 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(movieName);
-        dest.writeString(movieGenre);
-        if (movieBudget == null) {
+        dest.writeString(title);
+        dest.writeString(genre);
+        if (budget == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeDouble(movieBudget);
+            dest.writeDouble(budget);
         }
-        if (movieDuration == null) {
+        if (duration == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeInt(movieDuration);
+            dest.writeInt(duration);
         }
+        if (rating == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(rating);
+        }
+        dest.writeByte((byte) (oscarWinner == null ? 0 : oscarWinner ? 1 : 2));
+        dest.writeByte((byte) (recommended == null ? 0 : recommended ? 1 : 2));
     }
 }
