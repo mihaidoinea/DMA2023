@@ -48,7 +48,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Integer movieDuration = sbDuration.getProgress();
                 String movieGenre = spGenre.getSelectedItem().toString();
 
-                Movie movie = new Movie(movieTitle, movieGenre, movieDuration, movieBudget);
+                Movie movie = new Movie(movieTitle,movieGenre,movieDuration, movieBudget, rating, oscarWinner,recommended, release);
                 Intent intent = new Intent();
                 intent.putExtra("movie", movie);
                 setResult(RESULT_OK, intent);
