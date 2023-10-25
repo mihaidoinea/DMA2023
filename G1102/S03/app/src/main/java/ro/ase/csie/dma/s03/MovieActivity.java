@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import java.util.Date;
 
@@ -20,6 +23,9 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private EditText etBudget;
     private Spinner spGenre;
     private SeekBar sbDuration;
+    private RatingBar rbRating;
+    private CheckBox cbOscar;
+    private Switch swRecommended;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,9 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         etBudget = findViewById(R.id.etBudget);
         spGenre = findViewById(R.id.spGenre);
         sbDuration = findViewById(R.id.sbDuration);
+        rbRating = findViewById(R.id.rbRating);
+        cbOscar = findViewById(R.id.cbOscar);
+        swRecommended = findViewById(R.id.swRecommended);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,10 +53,11 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Double budget = Double.parseDouble(etBudget.getText().toString());
                 Integer duration = sbDuration.getProgress();
 
-                Float rating = null;
+                Float rating = rbRating.getRating();
+                Boolean oscar = cbOscar.isChecked();
+
                 Date release = null;
-                Boolean oscar = null;
-                Boolean recommended = null;
+                Boolean recommended = swRecommended.isChecked();
                 AgeLimitEnum approval = null;
 
                 Movie movie = new Movie(title,genre,budget,duration, release, oscar, recommended, rating, approval);
