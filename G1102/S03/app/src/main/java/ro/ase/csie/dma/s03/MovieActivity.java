@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import java.util.Date;
+
 public class MovieActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnSave;
@@ -41,7 +43,15 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 String genre = spGenre.getSelectedItem().toString();
                 Double budget = Double.parseDouble(etBudget.getText().toString());
                 Integer duration = sbDuration.getProgress();
-                Movie movie = new Movie(title, genre, budget, duration);
+
+                Float rating = null;
+                Date release = null;
+                Boolean oscar = null;
+                Boolean recommended = null;
+                AgeLimitEnum approval = null;
+
+                Movie movie = new Movie(title,genre,budget,duration, release, oscar, recommended, rating, approval);
+
                 Intent intent = new Intent();
                 intent.putExtra("keyParam", movie);
                 setResult(RESULT_OK, intent);
@@ -50,8 +60,6 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         });
 //        btnSave.setOnClickListener(this);
 //        etTitle.setOnClickListener(this);
-
-
     }
 
     public void saveMovieClick(View view)
