@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                                 movies.remove(index);
                                 movies.add(movie);
                             }
+                            //Snackbar.make(getApplicationContext(),  ,"Movie: " + movie, Snackbar.LENGTH_LONG).show();
                             Toast.makeText(getApplicationContext(), "Movie:" + movie, Toast.LENGTH_LONG).show();
                             Log.d("MainActivity", "onActivityResult");
                         }
