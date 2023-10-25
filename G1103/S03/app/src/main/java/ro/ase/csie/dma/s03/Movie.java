@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Movie implements Parcelable {
@@ -13,19 +14,23 @@ public class Movie implements Parcelable {
     String genre;
     double budget;
     int duration;
-    byte rating;
+    float rating;
+    boolean recommended;
+    boolean oscarWinner;
+    ParentalApprovalEnum approval;
+    Date release;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return title.equals(movie.title) && genre.equals(movie.genre);
+        return Objects.equals(title, movie.title) && Objects.equals(release, movie.release);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, genre);
+        return Objects.hash(title, release);
     }
 
     protected Movie(Parcel in) {
@@ -33,14 +38,9 @@ public class Movie implements Parcelable {
         genre = in.readString();
         budget = in.readDouble();
         duration = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(genre);
-        dest.writeDouble(budget);
-        dest.writeInt(duration);
+        rating = in.readFloat();
+        recommended = in.readByte() != 0;
+        oscarWinner = in.readByte() != 0;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -62,46 +62,24 @@ public class Movie implements Parcelable {
                 ", genre='" + genre + '\'' +
                 ", budget=" + budget +
                 ", duration=" + duration +
+                ", rating=" + rating +
+                ", recommended=" + recommended +
+                ", oscarWinner=" + oscarWinner +
+                ", approval=" + approval +
+                ", release=" + release +
                 '}';
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public double getBudget() {
-        return budget;
-    }
-
-    public void setBudget(double budget) {
-        this.budget = budget;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public Movie(String title, String genre, double budget, int duration) {
+    public Movie(String title, String genre, double budget, int duration, float rating, boolean recommended, boolean oscarWinner, ParentalApprovalEnum approval, Date release) {
         this.title = title;
         this.genre = genre;
         this.budget = budget;
         this.duration = duration;
+        this.rating = rating;
+        this.recommended = recommended;
+        this.oscarWinner = oscarWinner;
+        this.approval = approval;
+        this.release = release;
     }
 
     @Override
@@ -109,5 +87,14 @@ public class Movie implements Parcelable {
         return 0;
     }
 
-
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(genre);
+        dest.writeDouble(budget);
+        dest.writeInt(duration);
+        dest.writeFloat(rating);
+        dest.writeByte((byte) (recommended ? 1 : 0));
+        dest.writeByte((byte) (oscarWinner ? 1 : 0));
+    }
 }

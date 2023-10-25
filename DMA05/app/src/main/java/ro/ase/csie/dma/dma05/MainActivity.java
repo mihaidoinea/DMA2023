@@ -57,22 +57,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView= findViewById(R.id.rvItems);
 
         alist.addAll(Arrays.asList(values));
-//        listView.setAdapter(new ArrayAdapter<DataItem>(this, android.R.layout.simple_list_item_1, alist));
+       // listView.setAdapter(new ArrayAdapter<DataItem>(this, android.R.layout.simple_list_item_1, alist));
 
-    /*    CustomAdapter myAdapter = new CustomAdapter(this, alist);
-        listView.setAdapter(myAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "MainActivity:" + alist.get(position).toString(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
+//        CustomAdapter myAdapter = new CustomAdapter(this, alist);
+//        listView.setAdapter(myAdapter);
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(), "MainActivity:" + alist.get(position).toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         DataItemAdapter dataItemAdapter = new DataItemAdapter(this, alist);
         recyclerView.setAdapter(dataItemAdapter);
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
-        ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, alist.stream().map(DataItem::getName).distinct().collect(Collectors.toList()));
+        ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,
+                alist.stream().map(DataItem::getName).distinct().collect(Collectors.toList()));
         autoCompleteTextView.setAdapter(actvAdapter);
 
     }

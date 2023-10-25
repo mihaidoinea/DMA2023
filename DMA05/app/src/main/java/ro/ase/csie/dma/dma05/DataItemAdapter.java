@@ -34,6 +34,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         DataItem item = mItems.get(position);
+        holder.itemPosition = mItems.indexOf(item);
         holder.tvId.setText("Id:" + item.getId());
         holder.tvName.setText(item.getName());
         holder.cbActive.setChecked(item.getActive());
@@ -52,6 +53,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public int itemPosition;
         public TextView tvId;
         public TextView tvName;
         public CheckBox cbActive;
@@ -62,6 +64,12 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
             tvId = itemView.findViewById(R.id.txtId);
             tvName = itemView.findViewById(R.id.txtName);
             cbActive = itemView.findViewById(R.id.active);
+            cbActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                     mItems.get(itemPosition).setActive(isChecked);
+                }
+            });
         }
     }
 

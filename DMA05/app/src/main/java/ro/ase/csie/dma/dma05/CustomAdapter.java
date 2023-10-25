@@ -2,6 +2,7 @@ package ro.ase.csie.dma.dma05;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class CustomAdapter extends BaseAdapter implements AdapterView.OnItemClic
 
     private Context mContext;
     private ArrayList<DataItem> itemArray;
+    static int counter = 0;
 
     public CustomAdapter(Context mContext, ArrayList<DataItem> items) {
         this.mContext = mContext;
@@ -42,6 +44,8 @@ public class CustomAdapter extends BaseAdapter implements AdapterView.OnItemClic
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CustomHolder customHolder;
+
+        Log.d("CustomAdapter", "getView_" + counter++);
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
             customHolder = new CustomHolder(convertView);

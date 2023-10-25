@@ -85,13 +85,6 @@
 
     </LinearLayout>
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:max="5"
-        android:stepSize="0.5"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/btnSave"
         android:onClick="btnSaveMovie"
