@@ -2,15 +2,21 @@ package ro.ase.csie.dma.s03;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MovieActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +26,9 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private EditText etBudget;
     private Spinner spGenre;
     private SeekBar sbDuration;
+    private RatingBar rbRating;
+    private EditText etRelease;
+    Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,29 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         etBudget = findViewById(R.id.etBudget);
         sbDuration = findViewById(R.id.sbDuration);
         spGenre = findViewById(R.id.spGenre);
+        etRelease = findViewById(R.id.etRelease);
+        etRelease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, month);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        Date release = calendar.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        etRelease.setText(sdf.format(release));
+                    }
+                };
+                DatePickerDialog dpd = new DatePickerDialog(MovieActivity.this, onDateSetListener,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                dpd.show();
+            }
+        });
+        rbRating = findViewById(R.id.rbRating);
 
 //        etTitle.setOnClickListener(this);
 
@@ -47,13 +79,19 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 String genre = spGenre.getSelectedItem().toString();
                 Integer duration = sbDuration.getProgress();
 
-                float rating = 0;
+                float rating = rbRating.getRating();
                 boolean recommended = false;
                 boolean oscar = false;
                 ParentalApprovalEnum approval = null;
+                String date = etRelease.getText().toString();
                 Date release = null;
+                try {
+                    release = SimpleDateFormat.getInstance().parse(date);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
-                Movie movie = new Movie(title, genre,budget,duration,rating,recommended,oscar,approval, release);
+                Movie movie = new Movie(title, genre, budget, duration, rating, recommended, oscar, approval, release);
                 Intent intent = new Intent();
                 intent.putExtra("keyParam", movie);
 
