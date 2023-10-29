@@ -14,4 +14,10 @@
         android:layout_height="wrap_content"
         android:onClick="addMovie"
         android:text="Add movie" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
