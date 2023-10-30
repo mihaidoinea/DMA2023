@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +20,22 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     static ArrayList<Movie> movieArrayList = new ArrayList<>();
 
+    private RecyclerView rvMovies;
+
     ActivityResultLauncher<Intent> startActivity;
+    private RecyclerView.Adapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rvMovies = findViewById(R.id.rvMovies);
+
+        movieAdapter = new MovieAdapter(this, movieArrayList);
+
+        rvMovies.setAdapter(movieAdapter);
+
         startActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -44,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                                 movieArrayList.add(movie);
                                 Toast.makeText(getApplicationContext(), "Movie added: " + movie, Toast.LENGTH_LONG).show();
                             }
+                            int index = movieArrayList.indexOf(movie);
+                            movieAdapter.notifyItemChanged(index);
                         }
                     }
                 });
