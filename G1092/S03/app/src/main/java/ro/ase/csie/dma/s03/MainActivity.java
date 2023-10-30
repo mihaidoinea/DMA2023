@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +21,19 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> startActivity;
     static ArrayList<Movie> movies = new ArrayList<>();
+
+    private RecyclerView rvMovies;
+    private RecyclerView.Adapter movieAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rvMovies = findViewById(R.id.recyclerView);
+        movieAdapter = new MovieAdapter(this, movies);
+        rvMovies.setAdapter(movieAdapter);
+
         startActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                    //manage activity response coming from other activities
@@ -42,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                                 movies.remove(index);
                                 movies.add(movie);
                             }
+
+                            int indexOf = movies.indexOf(movie);
+                            movieAdapter.notifyItemChanged(indexOf);
+
                             //Snackbar.make(getApplicationContext(),  ,"Movie: " + movie, Snackbar.LENGTH_LONG).show();
                             Toast.makeText(getApplicationContext(), "Movie:" + movie, Toast.LENGTH_LONG).show();
                             Log.d("MainActivity", "onActivityResult");
