@@ -8,15 +8,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,10 +31,11 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private Spinner spGenre;
     private SeekBar sbDuration;
     private Button btnSave;
-
     private EditText etRelease;
-
     private RatingBar rbRating;
+    private Switch swOscar;
+    private CheckBox cbRecommended;
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +52,17 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         btnSave = findViewById(R.id.btnSave);
         rbRating = findViewById(R.id.ratingBar);
         etRelease=findViewById(R.id.etRelease);
-        Calendar calendar = null;
+        swOscar = findViewById(R.id.swOscar);
+        cbRecommended = findViewById(R.id.cbRecommended);
+        Calendar calendar = Calendar.getInstance();
         etRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dpd = new DatePickerDialog(getApplicationContext(),
+                DatePickerDialog dpd = new DatePickerDialog(MovieActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                                 calendar.set(Calendar.YEAR, year);
                                 calendar.set(Calendar.MONTH, month);
                                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -78,9 +84,14 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Integer duration = sbDuration.getProgress();
 
                 Date release = null;
-                Float rating = null;
-                Boolean oscar = null;
-                Boolean recommended = null;
+                try {
+                    release = dateFormat.parse(etRelease.getText().toString());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                Float rating = rbRating.getRating();
+                Boolean oscar = swOscar.isChecked();
+                Boolean recommended = cbRecommended.isChecked();
 
                 Movie movie = new Movie(title, genre, budget, duration, release,rating, oscar, recommended);
                 Intent intent = new Intent();
