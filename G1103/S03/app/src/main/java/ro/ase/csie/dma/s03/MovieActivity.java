@@ -86,7 +86,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 String date = etRelease.getText().toString();
                 Date release = null;
                 try {
-                    release = SimpleDateFormat.getInstance().parse(date);
+                    release = new SimpleDateFormat("dd-MM-yyyy").parse(date);
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
