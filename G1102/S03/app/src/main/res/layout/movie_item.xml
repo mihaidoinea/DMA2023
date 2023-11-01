@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/tvRelease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <RatingBar
+            android:id="@+id/rbRating"
+            android:max="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:tooltipText="Export movie"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/rbExport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Export" />
+
+            <RadioButton
+                android:id="@+id/rbDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Display" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@tools:sample/avatars" />
+</LinearLayout>
