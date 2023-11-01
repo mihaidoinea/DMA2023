@@ -42,6 +42,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
+        String imageName = "img_"+(position+1);
+        int drawable = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+        holder.ivPoster.setImageResource(drawable);
     }
 
     @Override
