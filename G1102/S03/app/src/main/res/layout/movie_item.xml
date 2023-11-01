@@ -28,6 +28,7 @@
             android:layout_height="wrap_content" />
 
         <RadioGroup
+            android:id="@+id/rgOptions"
             android:layout_width="match_parent"
             android:tooltipText="Export movie"
             android:layout_height="wrap_content" >
@@ -51,5 +52,5 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:src="@tools:sample/avatars" />
+        android:src="@android:drawable/dialog_frame" />
 </LinearLayout>

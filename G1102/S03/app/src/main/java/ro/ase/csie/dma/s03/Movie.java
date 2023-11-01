@@ -43,6 +43,8 @@ public class Movie implements Parcelable {
         byte tmpRecommended = in.readByte();
         recommended = tmpRecommended == 0 ? null : tmpRecommended == 1;
         rating = in.readFloat();
+        release = new Date(in.readLong());
+
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -98,5 +100,6 @@ public class Movie implements Parcelable {
         dest.writeByte((byte) (oscarWinner == null ? 0 : oscarWinner ? 1 : 2));
         dest.writeByte((byte) (recommended == null ? 0 : recommended ? 1 : 2));
         dest.writeFloat(rating);
+        dest.writeLong(release.getTime());
     }
 }
