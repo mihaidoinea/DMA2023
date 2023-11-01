@@ -38,6 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
+        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
+        holder.ivPoster.setImageResource(identifier);
     }
 
     @Override
