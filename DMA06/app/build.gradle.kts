@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "ro.ase.csie.dma.dma06"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ro.ase.csie.dma.dma06"

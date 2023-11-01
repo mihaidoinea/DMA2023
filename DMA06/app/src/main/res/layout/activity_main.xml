@@ -19,16 +19,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnAsync"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="AsyncTask" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivAsync"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@tools:sample/avatars" />
+                android:src="@android:drawable/alert_dark_frame" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,16 +38,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnCallable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Callable" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivCallable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@tools:sample/avatars" />
+                android:src="@android:drawable/alert_dark_frame" />
         </LinearLayout>
     </LinearLayout>
 
@@ -63,16 +63,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnRunnable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Runnable" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivRunnable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@tools:sample/avatars" />
+                android:src="@android:drawable/alert_dark_frame" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,16 +82,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnThreads"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="Threads" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivThread"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@tools:sample/avatars" />
+                android:src="@android:drawable/alert_dark_frame" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
