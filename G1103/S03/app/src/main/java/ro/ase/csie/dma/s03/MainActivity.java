@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private Button btnShow;
     private static final String MAIN_TAG = MainActivity.class.getSimpleName();
     static ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
