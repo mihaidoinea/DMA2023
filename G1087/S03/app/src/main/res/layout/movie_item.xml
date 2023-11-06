@@ -5,9 +5,8 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
         android:orientation="vertical">
 
         <TextView
@@ -26,23 +25,22 @@
 
         <RatingBar
             android:id="@+id/rbRating"
-            android:layout_width="match_parent"
+            android:max="5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/ivPoster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="2.3"
-        android:src="@android:drawable/btn_plus" />
+        android:src="@android:drawable/dialog_frame" />
 
     <CheckBox
         android:id="@+id/cbSelected"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.1" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
