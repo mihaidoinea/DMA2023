@@ -37,6 +37,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.tvTitle.setText(movie.title);
         holder.tvRelease.setText(movie.release.toString());
         holder.rbRating.setRating(movie.getRating());
+
+        String resName = "img_" + (position+1);
+        int drawable = context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
+        holder.poster.setImageResource(drawable);
     }
 
     @Override
