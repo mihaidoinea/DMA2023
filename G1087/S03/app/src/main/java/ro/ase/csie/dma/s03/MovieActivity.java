@@ -31,6 +31,8 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox cbRecommended;
     private Switch swOscar;
     private EditText etRelease;
+
+    private EditText etPoster;
     Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -53,7 +55,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         cbRecommended  = findViewById(R.id.checkBox);
         swOscar = findViewById(R.id.switch1);
         etRelease = findViewById(R.id.etRelease);
-
+        etPoster = findViewById(R.id.etPoster);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         etRelease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +92,8 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Boolean oscarWinner = swOscar.isChecked();
                 Boolean recommended = cbRecommended.isChecked();
                 Date release = calendar.getTime();
-                Movie movie = new Movie(movieTitle,movieGenre,movieDuration, movieBudget, rating, oscarWinner,recommended, release);
+                String poster = etPoster.getText().toString();
+                Movie movie = new Movie(movieTitle,movieGenre,movieDuration, movieBudget, rating, oscarWinner,recommended, release, poster);
                 Intent intent = new Intent();
                 intent.putExtra("movie", movie);
                 setResult(RESULT_OK, intent);

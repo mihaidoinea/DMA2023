@@ -181,6 +181,20 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Movie Poster URL" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnSaveMovie"
         android:layout_width="match_parent"
