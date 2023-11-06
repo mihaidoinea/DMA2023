@@ -2,6 +2,7 @@ package ro.ase.csie.dma.s03;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.tvTitle.setText(movie.title);
         holder.tvRelease.setText(movie.release.toString());
         holder.rbRating.setRating(movie.getRating());
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MovieAdapter","Clicked on: " + movie);
+            }
+        });
         Future<Bitmap> submit = executors.submit(new CallableDownloadPosterTask(movie.posterUrl));
         Bitmap bitmap = null;
         try {
