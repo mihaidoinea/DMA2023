@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private ArrayList<Movie> movies;
     private Context context;
+    ExecutorService executors;
+
 
     public MovieAdapter(MainActivity mainActivity, ArrayList<Movie> movies) {
         this.context = mainActivity;
         this.movies = movies;
+        this.executors = Executors.newFixedThreadPool(5);
     }
 
     @NonNull
@@ -38,9 +46,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.tvRelease.setText(movie.release.toString());
         holder.rbRating.setRating(movie.getRating());
 
-        String resName = "img_" + (position+1);
+        Future<Bitmap> submit = executors.submit(new CallableDownloadPosterTask(movie.posterUrl));
+        Bitmap bitmap = null;
+        try {
+            bitmap = submit.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        holder.poster.setImageBitmap(bitmap);
+
+       /* String resName = "img_" + (position+1);
         int drawable = context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
-        holder.poster.setImageResource(drawable);
+        holder.poster.setImageResource(drawable);*/
     }
 
     @Override
