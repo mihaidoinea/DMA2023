@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context context;
@@ -40,11 +44,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
 
-        Bitmap bitmap = getPosterURL();
+        Bitmap bitmap = getPosterURL(movie.posterUrl);
         holder.ivPoster.setImageBitmap(bitmap);
 
 //        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
 //        holder.ivPoster.setImageResource(identifier);
+    }
+
+    private Bitmap getPosterURL(String posterUrl) {
+        Bitmap bitmap = null;
+        DownloadCallablePoster dcp = new DownloadCallablePoster(posterUrl);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Bitmap> submit = executor.submit(dcp);
+        try {
+            bitmap = submit.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return bitmap;
     }
 
     @Override
