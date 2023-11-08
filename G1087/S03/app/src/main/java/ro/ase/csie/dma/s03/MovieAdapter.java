@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -46,15 +47,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.tvTitle.setText(movie.title);
         holder.tvRelease.setText("Release: " + movie.release.toString());
         holder.rbRating.setRating(movie.getRating());
+        holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    Future<Bitmap> submit = executors.submit(new CallableDownloadTask(movie.posterUrl));
+                    try {
+                        holder.ivPoster.setImageBitmap(submit.get());
+                    } catch (ExecutionException e) {
+                        throw new RuntimeException(e);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
 
-        Future<Bitmap> submit = executors.submit(new CallableDownloadTask(movie.posterUrl));
-        try {
-            holder.ivPoster.setImageBitmap(submit.get());
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+
 
         //from static resources
         /*String imgName = "img_" + ((position % 2) + 1);

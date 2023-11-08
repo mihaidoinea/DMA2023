@@ -31,8 +31,8 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private RatingBar rbRating;
     private CheckBox cbOscar;
     private Switch swRecommended;
-
     private EditText etDate;
+    private EditText etPoster;
 
     Calendar calendar = Calendar.getInstance();
 
@@ -54,6 +54,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         cbOscar = findViewById(R.id.cbOscar);
         swRecommended = findViewById(R.id.swRecommended);
         etDate = findViewById(R.id.etDate);
+        etPoster = findViewById(R.id.etPoster);
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Log.d("MovieActivity", "onClickEventWithListener");
@@ -86,6 +88,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
 
                 Float rating = rbRating.getRating();
                 Boolean oscar = cbOscar.isChecked();
+                String posterUrl = etPoster.getText().toString();
 
                 String dateString = etDate.getText().toString();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -100,7 +103,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Boolean recommended = swRecommended.isChecked();
                 AgeLimitEnum approval = null;
 
-                Movie movie = new Movie(title,genre,budget,duration, release, oscar, recommended, rating, approval);
+                Movie movie = new Movie(title,genre,budget,duration, release, oscar, recommended, rating, approval, posterUrl);
 
                 Intent intent = new Intent();
                 intent.putExtra("keyParam", movie);

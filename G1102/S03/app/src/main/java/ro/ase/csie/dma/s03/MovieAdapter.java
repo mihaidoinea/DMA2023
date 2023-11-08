@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +39,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
-        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
-        holder.ivPoster.setImageResource(identifier);
+
+        Bitmap bitmap = getPosterURL();
+        holder.ivPoster.setImageBitmap(bitmap);
+
+//        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
+//        holder.ivPoster.setImageResource(identifier);
     }
 
     @Override
