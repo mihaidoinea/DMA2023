@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String movieUrl = "https://www.joblo.com/wp-content/uploads/2020/09/enola-review-face.jpg";
     private static final String RECIPE_GET_JSON = "https://jsonkeeper.com/b/OCIE";
-    private static final String RECIPE_POST_JSON = "https://ptsv2.com/t/MDA2021/post";
+    private static final String RECIPE_POST_JSON = "https://webhook.site/b300cd9b-886c-4361-8f41-1ef8c2882624";
     private Button btnAsync;
     private Button btnCallable;
     private Button btnThread;
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView ivCallable;
     private ImageView ivRunnable;
     private ImageView ivThread;
+
+    public static int BITMAP_CODE = 1122;
     private static final String TAG = MainActivity.class.getName();
     private List<Recipe> recipes= new ArrayList<>();
     @Override
@@ -99,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
                 @Override
                 public boolean handleMessage(@NonNull Message message) {
-                    int receivedBitmapCode = 1122;
-                    if(message.what == receivedBitmapCode)
+//                    int receivedBitmapCode = 1122;
+                    if(message.what == BITMAP_CODE)
                     {
                         ivThread.setImageBitmap((Bitmap) message.obj);
                         return  true;

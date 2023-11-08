@@ -29,6 +29,7 @@ public class DownloadRunnableTask implements Runnable {
             urlConnection.connect();
             InputStream inputStream = urlConnection.getInputStream();
             final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            //ivPoster.setImageBitmap(bitmap);
 
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override

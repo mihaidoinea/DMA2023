@@ -39,7 +39,7 @@ public class DownloadRunnableHandlerTask implements Runnable {
             connection.disconnect();
         }
         Message message = new Message();
-        message.what =1122;
+        message.what = MainActivity.BITMAP_CODE;
         message.obj = bitmap;
         uiHandler.sendMessageAtFrontOfQueue(message);
     }
