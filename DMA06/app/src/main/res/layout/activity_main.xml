@@ -94,4 +94,25 @@
                 android:src="@android:drawable/alert_dark_frame" />
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGetJson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getJson"
+        android:text="Get JSON" />
+
+    <Button
+        android:id="@+id/btnPostJson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="postJson"
+        android:text="Post JSON" />
+
+    <Button
+        android:id="@+id/btnGetRest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getRest"
+        android:text="Get via REST" />
 </LinearLayout>
