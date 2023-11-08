@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context context;
@@ -42,9 +47,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
-        String imageName = "img_"+(position+1);
+
+        Bitmap bitmap = getMoviePoster(movie.posterUrl);
+        holder.ivPoster.setImageBitmap(bitmap);
+
+       /* String imageName = "img_"+(position+1);
         int drawable = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-        holder.ivPoster.setImageResource(drawable);
+        holder.ivPoster.setImageResource(drawable);*/
+    }
+
+    private Bitmap getMoviePoster(String posterUrl) {
+        Bitmap bitmap = null;
+        ExecutorService executors = Executors.newFixedThreadPool(3);
+        Future<Bitmap> submit = executors.submit(new DownloadCallableTask(posterUrl));
+        try {
+            bitmap = submit.get();
+            //ivCallable.setImageBitmap(submit.get());
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return bitmap;
     }
 
     @Override

@@ -19,6 +19,7 @@ public class Movie implements Parcelable {
     boolean oscarWinner;
     ParentalApprovalEnum approval;
     Date release;
+    String posterUrl;
 
     @Override
     public boolean equals(Object o) {
@@ -42,6 +43,7 @@ public class Movie implements Parcelable {
         recommended = in.readByte() != 0;
         oscarWinner = in.readByte() != 0;
         release = new Date(in.readLong());
+        posterUrl = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -71,7 +73,10 @@ public class Movie implements Parcelable {
                 '}';
     }
 
-    public Movie(String title, String genre, double budget, int duration, float rating, boolean recommended, boolean oscarWinner, ParentalApprovalEnum approval, Date release) {
+    public Movie(String title, String genre, double budget,
+                 int duration, float rating, boolean recommended,
+                 boolean oscarWinner, ParentalApprovalEnum approval,
+                 Date release, String posterUrl) {
         this.title = title;
         this.genre = genre;
         this.budget = budget;
@@ -81,6 +86,7 @@ public class Movie implements Parcelable {
         this.oscarWinner = oscarWinner;
         this.approval = approval;
         this.release = release;
+        this.posterUrl = posterUrl;
     }
 
     @Override
@@ -98,5 +104,6 @@ public class Movie implements Parcelable {
         dest.writeByte((byte) (recommended ? 1 : 0));
         dest.writeByte((byte) (oscarWinner ? 1 : 0));
         dest.writeLong(release.getTime());
+        dest.writeString(posterUrl);
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,10 +23,18 @@ import java.util.concurrent.Future;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private Context context;
-    private ArrayList<Movie> movies;
+    static private ArrayList<Movie> movies;
+
+    static private HashMap<Movie, Integer> movieOptions;
+
     public MovieAdapter(MainActivity mainActivity, ArrayList<Movie> movieArrayList) {
         this.context = mainActivity;
         this.movies = movieArrayList;
+        movieOptions = new HashMap<>();
+        for(Movie movie: movies)
+        {
+            movieOptions.put(movie, 0);
+        }
     }
 
     @NonNull
@@ -43,9 +52,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMMM-yyyy");
         holder.tvRelease.setText(sdf.format(movie.release));
         holder.rbRating.setRating(movie.rating);
-
         Bitmap bitmap = getPosterURL(movie.posterUrl);
         holder.ivPoster.setImageBitmap(bitmap);
+        holder.position = movies.indexOf(movie);
 
 //        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
 //        holder.ivPoster.setImageResource(identifier);
@@ -72,6 +81,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     public static class MovieHolder extends RecyclerView.ViewHolder {
+
+        protected  int position;
         protected TextView tvTitle;
         protected TextView tvRelease;
         protected RatingBar rbRating;
@@ -85,6 +96,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             rbRating = itemView.findViewById(R.id.rbRating);
             rgOptions = itemView.findViewById(R.id.rgOptions);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+
+            rgOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                    Movie movie = movies.get(position);
+                    movieOptions.put(movie, checkedId);
+                }
+            });
         }
     }
 }

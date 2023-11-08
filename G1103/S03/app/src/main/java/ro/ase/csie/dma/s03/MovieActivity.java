@@ -28,6 +28,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private SeekBar sbDuration;
     private RatingBar rbRating;
     private EditText etRelease;
+    private EditText etPoster;
     Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -45,6 +46,8 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         sbDuration = findViewById(R.id.sbDuration);
         spGenre = findViewById(R.id.spGenre);
         etRelease = findViewById(R.id.etRelease);
+        etPoster = findViewById(R.id.etPoster);
+
         etRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +94,9 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                     throw new RuntimeException(e);
                 }
 
-                Movie movie = new Movie(title, genre, budget, duration, rating, recommended, oscar, approval, release);
+                String posterUrl = etPoster.getText().toString();
+
+                Movie movie = new Movie(title, genre, budget, duration, rating, recommended, oscar, approval, release, posterUrl);
                 Intent intent = new Intent();
                 intent.putExtra("keyParam", movie);
 
