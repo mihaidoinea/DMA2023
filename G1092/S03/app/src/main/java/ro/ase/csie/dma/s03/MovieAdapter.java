@@ -25,7 +25,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private Context context;
     ExecutorService executors;
 
-
     public MovieAdapter(MainActivity mainActivity, ArrayList<Movie> movies) {
         this.context = mainActivity;
         this.movies = movies;
@@ -49,7 +48,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int position = movies.indexOf(movie);
                 Log.d("MovieAdapter","Clicked on: " + movie);
+                ((IMovieItemEvents)context).onItemClick(position);
             }
         });
         Future<Bitmap> submit = executors.submit(new CallableDownloadPosterTask(movie.posterUrl));

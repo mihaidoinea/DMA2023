@@ -18,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMovieItemEvents {
 
     ActivityResultLauncher<Intent> startActivity;
     static ArrayList<Movie> movies = new ArrayList<>();
@@ -34,7 +34,13 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = findViewById(R.id.recyclerView);
         movieAdapter = new MovieAdapter(this, movies);
         rvMovies.setAdapter(movieAdapter);
-
+        rvMovies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                Toast.makeText(getApplicationContext(),"Clicked on: " + id , Toast.LENGTH_LONG).show();
+            }
+        });
         startActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                    //manage activity response coming from other activities
@@ -69,6 +75,16 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MainActivity.this, MovieActivity.class);
 //        startActivity(intent);
+        startActivity.launch(intent);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        //open MovieActivity base on what movie item was clicked on
+        Log.d("MainActivity","Position: " +position);
+        Intent intent = new Intent(getApplicationContext(), MovieActivity.class);
+        Movie movie = movies.get(position);
+        intent.putExtra("mKey", movie);
         startActivity.launch(intent);
     }
 }
