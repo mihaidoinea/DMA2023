@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMovieItemEvents {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     static ArrayList<Movie> movieArrayList = new ArrayList<>();
@@ -33,8 +33,13 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = findViewById(R.id.rvMovies);
 
         movieAdapter = new MovieAdapter(this, movieArrayList);
-
         rvMovies.setAdapter(movieAdapter);
+        rvMovies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "View: " +v.getId());
+            }
+        });
 
         startActivity = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -74,5 +79,11 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d(TAG, "Movie: " + movie);
         }
+    }
+
+    @Override
+    public void onClickedMovie(int position) {
+        Movie movie = movieArrayList.get(position);
+        Log.d("MainActivity", "Movie: " + movie);
     }
 }

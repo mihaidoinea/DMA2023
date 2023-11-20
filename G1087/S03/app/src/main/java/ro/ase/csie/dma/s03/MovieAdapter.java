@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     private ArrayList<Movie> movies;
     private Context context;
+    private IMovieItemEvents mainActivityCallback;
 
     private ExecutorService executors;
 
@@ -31,6 +34,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         this.context = mainActivity;
         this.movies = movieArrayList;
         this.executors = Executors.newFixedThreadPool(5);
+        this.mainActivityCallback = mainActivity;
     }
 
     @NonNull
@@ -47,6 +51,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.tvTitle.setText(movie.title);
         holder.tvRelease.setText("Release: " + movie.release.toString());
         holder.rbRating.setRating(movie.getRating());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context.getApplicationContext(), "Movie:"+movie, Toast.LENGTH_LONG).show();
+                int position = movies.indexOf(movie);
+                mainActivityCallback.onClickedMovie(position);
+            }
+        });
         holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
