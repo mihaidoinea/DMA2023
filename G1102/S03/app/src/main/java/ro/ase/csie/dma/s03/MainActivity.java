@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMovieItemEvents {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     static ArrayList<Movie> movieArrayList = new ArrayList<>();
@@ -80,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MainActivity.this, MovieActivity.class);
         //startActivity(intent);
+        activityLauncher.launch(intent);
+    }
+
+    @Override
+    public void onMovieItemClicked(int position) {
+        Intent intent = new Intent(MainActivity.this, MovieActivity.class);
+        Movie movie = movieArrayList.get(position);
+        intent.putExtra("keyMovie", movie);
         activityLauncher.launch(intent);
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,13 +34,17 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private Switch swRecommended;
     private EditText etDate;
     private EditText etPoster;
-
+    private Movie movie;
     Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        movie = extras.getParcelable("keyMovie");
 
         initializeControls();
     }

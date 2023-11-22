@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     static private HashMap<Movie, Integer> movieOptions;
 
+    private IMovieItemEvents mainActivityCallback;
+
     public MovieAdapter(MainActivity mainActivity, ArrayList<Movie> movieArrayList) {
         this.context = mainActivity;
         this.movies = movieArrayList;
+        this.mainActivityCallback = mainActivity;
         movieOptions = new HashMap<>();
         for(Movie movie: movies)
         {
@@ -55,7 +59,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         Bitmap bitmap = getPosterURL(movie.posterUrl);
         holder.ivPoster.setImageBitmap(bitmap);
         holder.position = movies.indexOf(movie);
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = movies.indexOf(movie);
+                mainActivityCallback.onMovieItemClicked(position);
+            }
+        });
 //        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
 //        holder.ivPoster.setImageResource(identifier);
     }
