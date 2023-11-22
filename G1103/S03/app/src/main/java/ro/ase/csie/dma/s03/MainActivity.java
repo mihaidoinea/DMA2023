@@ -16,8 +16,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMovieItemEvents {
 
     private Button btnShow;
     private static final String MAIN_TAG = MainActivity.class.getSimpleName();
@@ -35,14 +36,22 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = findViewById(R.id.rvMovies);
         movieAdapter = new MovieAdapter(this, movieArrayList);
         rvMovies.setAdapter(movieAdapter);
-
         btnShow = findViewById(R.id.btnShow);
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(Movie movie: movieArrayList)
+                Set<Movie> movies = MovieAdapter.movieOptions.keySet();
+                for(Movie movie: movies)
                 {
-                    Log.d(MAIN_TAG, "Movie: " + movie);
+                    Integer radioButtonId = MovieAdapter.movieOptions.get(movie);
+                    if(radioButtonId == R.id.rbDisplay)
+                    {
+                        Log.d(MAIN_TAG, "Display: " + movie);
+                    }
+                    if(radioButtonId == R.id.rbExport)
+                    {
+                        Log.d(MAIN_TAG, "Export: " + movie);
+                    }
                 }
             }
         });
@@ -80,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MainActivity.this, MovieActivity.class);
         //startActivity(intent);
+        activityLauncher.launch(intent);
+    }
+
+    @Override
+    public void onMovieItemClicked(int position) {
+        Intent intent = new Intent(this, MovieActivity.class);
+        Movie movie = movieArrayList.get(position);
+        intent.putExtra("movieKey", movie);
         activityLauncher.launch(intent);
     }
 }

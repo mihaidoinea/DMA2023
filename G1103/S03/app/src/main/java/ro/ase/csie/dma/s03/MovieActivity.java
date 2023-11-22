@@ -37,6 +37,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_movie);
 
         initializeControls();
+
     }
 
     private void initializeControls() {
