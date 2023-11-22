@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
                                 movieArrayList.remove(index);
                                 movieArrayList.add(movie);
                             }
-                            int indexOf = movieArrayList.indexOf(movie);
-                            movieAdapter.notifyItemInserted(indexOf);
+                            movieAdapter.notifyDataSetChanged();
+
                         }
                     }
                 });

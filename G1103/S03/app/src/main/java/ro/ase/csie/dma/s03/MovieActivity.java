@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,13 +31,30 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private EditText etRelease;
     private EditText etPoster;
     Calendar calendar = Calendar.getInstance();
-
+    Movie movie;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
         initializeControls();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras!= null)
+        {
+             movie = extras.getParcelable("movieKey");
+             etTitle.setEnabled(false);
+             etTitle.setText(movie.title);
+             etRelease.setEnabled(false);
+             etRelease.setText(sdf.format(movie.release));
+             etBudget.setText(String.valueOf(movie.budget));
+             sbDuration.setProgress(movie.duration);
+             etPoster.setText(movie.posterUrl);
+             rbRating.setRating(movie.rating);
+             spGenre.setSelection(movie.genre.ordinal());
+        }
 
     }
 
@@ -59,7 +77,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                         calendar.set(Calendar.MONTH, month);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         Date release = calendar.getTime();
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
                         etRelease.setText(sdf.format(release));
                     }
                 };
@@ -80,7 +98,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("MovieActivity", "onClickWithListener");
                 String title = etTitle.getText().toString();
                 Double budget = Double.parseDouble(etBudget.getText().toString());
-                String genre = spGenre.getSelectedItem().toString();
+                MovieGenre genre = MovieGenre.valueOf(spGenre.getSelectedItem().toString());
                 Integer duration = sbDuration.getProgress();
 
                 float rating = rbRating.getRating();
