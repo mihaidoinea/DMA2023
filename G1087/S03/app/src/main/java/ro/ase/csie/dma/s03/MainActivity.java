@@ -85,5 +85,8 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
     public void onClickedMovie(int position) {
         Movie movie = movieArrayList.get(position);
         Log.d("MainActivity", "Movie: " + movie);
+        Intent intent = new Intent(MainActivity.this,MovieActivity.class);
+        intent.putExtra("movieKey", movie);
+        startActivity.launch(intent);
     }
 }

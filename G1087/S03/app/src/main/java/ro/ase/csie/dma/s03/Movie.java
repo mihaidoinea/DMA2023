@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Movie implements Parcelable {
     String title;
-    String genre;
+    MovieGenre genre;
     Integer duration;
     Double budget;
     Float rating;
@@ -20,22 +20,8 @@ public class Movie implements Parcelable {
     Date release;
     String posterUrl;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
-        return title.equals(movie.title) && release.equals(movie.release);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, release);
-    }
-
     protected Movie(Parcel in) {
         title = in.readString();
-        genre = in.readString();
         if (in.readByte() == 0) {
             duration = null;
         } else {
@@ -55,8 +41,9 @@ public class Movie implements Parcelable {
         oscarWinner = tmpOscarWinner == 0 ? null : tmpOscarWinner == 1;
         byte tmpRecommended = in.readByte();
         recommended = tmpRecommended == 0 ? null : tmpRecommended == 1;
-        release = new Date(in.readLong());
         posterUrl = in.readString();
+        genre = MovieGenre.valueOf(in.readString());
+        release= new Date(in.readLong());
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -70,6 +57,20 @@ public class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return title.equals(movie.title) && release.equals(movie.release);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, release);
+    }
+
 
     @Override
     public String toString() {
@@ -92,14 +93,6 @@ public class Movie implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public Integer getDuration() {
@@ -150,7 +143,7 @@ public class Movie implements Parcelable {
         this.release = release;
     }
 
-    public Movie(String title, String genre, Integer duration, Double budget, Float rating, Boolean oscarWinner, Boolean recommended, Date release, String poster) {
+    public Movie(String title, MovieGenre genre, Integer duration, Double budget, Float rating, Boolean oscarWinner, Boolean recommended, Date release, String poster) {
         this.title = title;
         this.genre = genre;
         this.duration = duration;
@@ -170,7 +163,6 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(title);
-        dest.writeString(genre);
         if (duration == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -191,7 +183,8 @@ public class Movie implements Parcelable {
         }
         dest.writeByte((byte) (oscarWinner == null ? 0 : oscarWinner ? 1 : 2));
         dest.writeByte((byte) (recommended == null ? 0 : recommended ? 1 : 2));
-        dest.writeLong(release.getTime());
         dest.writeString(posterUrl);
+        dest.writeString(genre.toString());
+        dest.writeLong(release.getTime());
     }
 }

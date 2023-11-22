@@ -34,15 +34,34 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText etPoster;
     Calendar calendar = Calendar.getInstance();
-
+    Movie movie;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
         initializeControls();
-
         setControlsBehaviour();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null)
+        {
+            movie = extras.getParcelable("movieKey");
+            etTitle.setText(movie.title);
+            etTitle.setEnabled(false);
+            etRelease.setEnabled(false);
+            etRelease.setText(sdf.format(movie.release));
+            sbDuration.setProgress(movie.duration);
+            rbRating.setRating(movie.rating);
+            cbRecommended.setChecked(movie.recommended);
+            swOscar.setChecked(movie.oscarWinner);
+            etPoster.setText(movie.posterUrl);
+            spGenre.setSelection(movie.genre.ordinal());
+            etBudget.setText(movie.budget.toString());
+        }
+
     }
 
     private void initializeControls() {
@@ -56,7 +75,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         swOscar = findViewById(R.id.switch1);
         etRelease = findViewById(R.id.etRelease);
         etPoster = findViewById(R.id.etPoster);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
         etRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,14 +105,13 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 String movieTitle = etTitle.getText().toString();
                 Double movieBudget = Double.parseDouble(etBudget.getText().toString());
                 Integer movieDuration = sbDuration.getProgress();
-                String movieGenre = spGenre.getSelectedItem().toString();
-
+                MovieGenre movieGenre = MovieGenre.valueOf(spGenre.getSelectedItem().toString());
                 Float rating = rbRating.getRating();
                 Boolean oscarWinner = swOscar.isChecked();
                 Boolean recommended = cbRecommended.isChecked();
-                Date release = calendar.getTime();
+                Date release = movie != null ? movie.release: calendar.getTime();
                 String poster = etPoster.getText().toString();
-                Movie movie = new Movie(movieTitle,movieGenre,movieDuration, movieBudget, rating, oscarWinner,recommended, release, poster);
+                movie = new Movie(movieTitle,movieGenre,movieDuration, movieBudget, rating, oscarWinner,recommended, release, poster);
                 Intent intent = new Intent();
                 intent.putExtra("movie", movie);
                 setResult(RESULT_OK, intent);
