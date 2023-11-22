@@ -25,4 +25,10 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:text="CheckBox" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </androidx.appcompat.widget.LinearLayoutCompat>

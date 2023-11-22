@@ -20,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
     private RecyclerView recyclerView;
-
+    final ArrayList<DataItem> alist = new ArrayList<DataItem>();
     private AutoCompleteTextView autoCompleteTextView;
+    DataItemAdapter dataItemAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ArrayList<DataItem> alist = new ArrayList<DataItem>();
+
         DataItem[] values = new DataItem[]{
                 new DataItem(1L, "Android", true),
                 new DataItem(2L, "iPhone", true),
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        DataItemAdapter dataItemAdapter = new DataItemAdapter(this, alist);
+        dataItemAdapter = new DataItemAdapter(this, alist);
         recyclerView.setAdapter(dataItemAdapter);
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
