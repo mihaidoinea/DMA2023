@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
                                 movieArrayList.add(movie);
                             }
                             int indexOf = movieArrayList.indexOf(movie);
-                            movieAdapter.notifyItemInserted(indexOf);
+                            movieAdapter.notifyDataSetChanged();
 
                             Toast.makeText(getApplicationContext(), "Saved movie:" + movie, Toast.LENGTH_LONG).show();
                         }

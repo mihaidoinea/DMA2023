@@ -4,5 +4,6 @@
         <item>Action</item>
         <item>Comedy</item>
         <item>Drama</item>
+        <item>Adventure</item>
     </string-array>
 </resources>

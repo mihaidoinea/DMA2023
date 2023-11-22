@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Movie implements Parcelable {
 
     String title;
-    String genre;
+    MovieGenre genre;
     double budget;
     int duration;
     Date release;
@@ -36,7 +36,7 @@ public class Movie implements Parcelable {
 
     protected Movie(Parcel in) {
         title = in.readString();
-        genre = in.readString();
+        genre = MovieGenre.valueOf(in.readString());
         budget = in.readDouble();
         duration = in.readInt();
         byte tmpOscarWinner = in.readByte();
@@ -77,7 +77,7 @@ public class Movie implements Parcelable {
                 '}';
     }
 
-    public Movie(String title, String genre, double budget,
+    public Movie(String title, MovieGenre genre, double budget,
                  int duration, Date release, Boolean oscarWinner,
                  Boolean recommended, float rating,
                  AgeLimitEnum ageLimit, String posterUrl) {
@@ -101,7 +101,7 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(title);
-        dest.writeString(genre);
+        dest.writeString(genre.toString());
         dest.writeDouble(budget);
         dest.writeInt(duration);
         dest.writeByte((byte) (oscarWinner == null ? 0 : oscarWinner ? 1 : 2));

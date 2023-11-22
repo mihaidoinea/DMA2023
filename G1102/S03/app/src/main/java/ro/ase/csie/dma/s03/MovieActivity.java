@@ -36,17 +36,32 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     private EditText etPoster;
     private Movie movie;
     Calendar calendar = Calendar.getInstance();
-
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        movie = extras.getParcelable("keyMovie");
-
         initializeControls();
+
+        Intent intent = getIntent();
+
+        Bundle extras = intent.getExtras();
+        if(extras != null) {
+            movie = extras.getParcelable("keyMovie");
+            etTitle.setEnabled(false);
+            etDate.setEnabled(false);
+            etTitle.setText(movie.title);
+            etDate.setText(sdf.format(movie.release));
+            etBudget.setText(String.valueOf(movie.budget));
+            sbDuration.setProgress(movie.duration);
+            swRecommended.setChecked(movie.recommended);
+            cbOscar.setChecked(movie.oscarWinner);
+            etPoster.setText(movie.posterUrl);
+            rbRating.setRating(movie.rating);
+            spGenre.setSelection(movie.genre.ordinal());
+        }
+
     }
 
     private void initializeControls() {
@@ -87,7 +102,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 Log.d("MovieActivity", "onClickEventWithListener");
                 String title = etTitle.getText().toString();
-                String genre = spGenre.getSelectedItem().toString();
+                MovieGenre genre = MovieGenre.valueOf(spGenre.getSelectedItem().toString());
                 Double budget = Double.parseDouble(etBudget.getText().toString());
                 Integer duration = sbDuration.getProgress();
 
@@ -96,7 +111,7 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
                 String posterUrl = etPoster.getText().toString();
 
                 String dateString = etDate.getText().toString();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
                 Date release = null;
                 try {
