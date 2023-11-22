@@ -88,4 +88,10 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
         intent.putExtra("keyMovie", movie);
         activityLauncher.launch(intent);
     }
+
+    @Override
+    public void onMovieItemDeleted(int position) {
+        movieArrayList.remove(position);
+        movieAdapter.notifyItemRemoved(position);
+    }
 }

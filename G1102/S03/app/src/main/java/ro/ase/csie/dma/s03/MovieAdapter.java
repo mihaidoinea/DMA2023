@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -66,6 +67,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
                 mainActivityCallback.onMovieItemClicked(position);
             }
         });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = movies.indexOf(movie);
+                mainActivityCallback.onMovieItemDeleted(position);
+            }
+        });
 //        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
 //        holder.ivPoster.setImageResource(identifier);
     }
@@ -99,6 +107,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         protected RadioGroup rgOptions;
         protected ImageView ivPoster;
 
+        protected Button btnDelete;
+
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
@@ -106,7 +116,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             rbRating = itemView.findViewById(R.id.rbRating);
             rgOptions = itemView.findViewById(R.id.rgOptions);
             ivPoster = itemView.findViewById(R.id.ivPoster);
-
+            btnDelete = itemView.findViewById(R.id.btnDelete);
             rgOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
