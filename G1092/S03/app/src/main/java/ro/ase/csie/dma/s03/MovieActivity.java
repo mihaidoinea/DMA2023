@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,12 +40,21 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private EditText etPoster;
-
+    Movie movie;
+    boolean isOnUpdate = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
         initializeControls();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            isOnUpdate = true;
+            movie = extras.getParcelable("mKey");
+            Toast.makeText(this, "Movie: " + movie, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initializeControls() {
@@ -57,6 +68,18 @@ public class MovieActivity extends AppCompatActivity implements View.OnClickList
         swOscar = findViewById(R.id.swOscar);
         cbRecommended = findViewById(R.id.cbRecommended);
         etPoster = findViewById(R.id.etPoster);
+
+        if(isOnUpdate)
+        {
+            etTitle.setEnabled(false);
+            etTitle.setText(movie.title);
+            etRelease.setEnabled(false);
+            etRelease.setText(dateFormat.format(movie.release));
+            etBudget.setText(movie.budget.toString());
+          //  spGenre.setSelection();
+        }
+
+
         Calendar calendar = Calendar.getInstance();
         etRelease.setOnClickListener(new View.OnClickListener() {
             @Override
