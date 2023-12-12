@@ -2,6 +2,8 @@
   {
     "title":"Manifest",
     "genre":"Drama",
+    "budget":"1000.2",
+    "rating":"3",
     "release":"12-12-2022",
     "duration":"120",
     "oscarWinner":"true",
@@ -10,6 +12,8 @@
   {
     "title":"Extraction",
     "genre":"Action",
+    "budget":"1500.2",
+    "rating":"2",
     "release":"11-11-2022",
     "duration":"68",
     "oscarWinner":"false",
@@ -18,6 +22,8 @@
   {
     "title":"Enola",
     "genre":"Adventure",
+    "budget":"1100.3",
+    "rating":"5",
     "release":"10-10-2022",
     "duration":"90",
     "oscarWinner":"true",
@@ -26,6 +32,8 @@
   {
       "title":"The Peripheral",
       "genre":"Drama",
+      "budget":"1040.2",
+      "rating":"1",
       "release":"11-12-2022",
       "duration":"70",
       "oscarWinner":"true",
