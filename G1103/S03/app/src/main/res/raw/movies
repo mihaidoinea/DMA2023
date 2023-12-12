@@ -1,0 +1,34 @@
+[
+  {
+    "title":"Manifest",
+    "genre":"Drama",
+    "release":"12-12-2022",
+    "duration":"120",
+    "oscarWinner":"true",
+    "poster":"https://flxt.tmsimg.com/assets/p17602726_b_v13_ab.jpg"
+  },
+  {
+    "title":"Extraction",
+    "genre":"Action",
+    "release":"11-11-2022",
+    "duration":"68",
+    "oscarWinner":"false",
+    "poster":"https://m.media-amazon.com/images/M/MV5BNDBkOWNiMTYtMjlkZS00NzJlLTg0ZmUtN2YwYWQ3N2I3N2Y0XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg"
+  },
+  {
+    "title":"Enola",
+    "genre":"Adventure",
+    "release":"10-10-2022",
+    "duration":"90",
+    "oscarWinner":"true",
+    "poster":"https://www.urban.ro/wp-content/uploads/2020/09/enolaholmesposter.jpg"
+  },
+  {
+      "title":"The Peripheral",
+      "genre":"Drama",
+      "release":"11-12-2022",
+      "duration":"70",
+      "oscarWinner":"true",
+      "poster":"https://m.media-amazon.com/images/I/41PDI8VkRDL.jpg"
+  }
+]
