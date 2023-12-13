@@ -5,21 +5,40 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.Date;
 import java.util.Objects;
 
+@Entity(tableName = "movie", primaryKeys = {"title", "release"})
 public class Movie implements Parcelable {
+    @ColumnInfo(name = "title")
+    @NonNull
     String title;
+    @ColumnInfo(name = "genre")
     MovieGenre genre;
+    @ColumnInfo(name = "duration")
     Integer duration;
+    @ColumnInfo(name = "budget")
     Double budget;
+    @ColumnInfo(name = "rating")
     Float rating;
+    @ColumnInfo(name = "oscarWinner")
     Boolean oscarWinner;
+    @ColumnInfo(name = "recommended")
     Boolean recommended;
+    @ColumnInfo(name = "release")
+    @NonNull
+    @TypeConverters(DateConverter.class)
     Date release;
+    @ColumnInfo(name = "posterUrl")
     String posterUrl;
 
+    @Ignore
     protected Movie(Parcel in) {
         title = in.readString();
         if (in.readByte() == 0) {
@@ -143,7 +162,7 @@ public class Movie implements Parcelable {
         this.release = release;
     }
 
-    public Movie(String title, MovieGenre genre, Integer duration, Double budget, Float rating, Boolean oscarWinner, Boolean recommended, Date release, String poster) {
+    public Movie(String title, MovieGenre genre, Integer duration, Double budget, Float rating, Boolean oscarWinner, Boolean recommended, Date release, String posterUrl) {
         this.title = title;
         this.genre = genre;
         this.duration = duration;
@@ -152,7 +171,7 @@ public class Movie implements Parcelable {
         this.oscarWinner = oscarWinner;
         this.recommended = recommended;
         this.release = release;
-        this.posterUrl = poster;
+        this.posterUrl = posterUrl;
     }
 
     @Override
