@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String jsonFromResources = JsonUtil.getJsonFromResources(this, R.raw.movies);
+        ArrayList<Movie> movies = JsonUtil.parseJsonContent(jsonFromResources);
+        movieArrayList.addAll(movies);
+
         rvMovies = findViewById(R.id.rvMovies);
 
         movieAdapter = new MovieAdapter(this, movieArrayList);
@@ -53,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
                             Movie movie = extras.getParcelable("movie");
                             if (movieArrayList.contains(movie)) {
                                 int index = movieArrayList.indexOf(movie);
-                                movieArrayList.remove(index);
-                                movieArrayList.add(movie);
+                                movieArrayList.set(index, movie);
                                 Toast.makeText(getApplicationContext(), "Movie updated!", Toast.LENGTH_LONG).show();
                             } else {
                                 movieArrayList.add(movie);

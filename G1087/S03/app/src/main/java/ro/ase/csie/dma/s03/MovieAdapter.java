@@ -59,19 +59,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
                 mainActivityCallback.onClickedMovie(position);
             }
         });
+        Future<Bitmap> submit = executors.submit(new CallableDownloadTask(movie.posterUrl));
+        try {
+            holder.ivPoster.setImageBitmap(submit.get());
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    Future<Bitmap> submit = executors.submit(new CallableDownloadTask(movie.posterUrl));
-                    try {
-                        holder.ivPoster.setImageBitmap(submit.get());
-                    } catch (ExecutionException e) {
-                        throw new RuntimeException(e);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                   //save in a local database
                 }
             }
         });
