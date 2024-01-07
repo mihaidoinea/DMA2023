@@ -1,6 +1,7 @@
 package ro.ase.csie.dma.s03;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -14,5 +15,8 @@ public interface MovieDao {
 
     @Insert
     long insert(Movie movie);
+
+    @Delete
+    int delete(Movie movie);
 
 }
