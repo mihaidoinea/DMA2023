@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
         Log.d(MAIN_TAG, "Json file: " + jsonFromResources);
         movieArrayList.addAll(JsonUtil.readJsonMovies(jsonFromResources));
 
-
         rvMovies = findViewById(R.id.rvMovies);
         movieAdapter = new MovieAdapter(this, movieArrayList);
         rvMovies.setAdapter(movieAdapter);
