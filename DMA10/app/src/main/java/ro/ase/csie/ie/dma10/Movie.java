@@ -12,7 +12,6 @@ public class Movie implements Serializable {
 
     @Ignore
     private String movieFId;
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private long movieId;

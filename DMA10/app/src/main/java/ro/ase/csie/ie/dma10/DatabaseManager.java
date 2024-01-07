@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Movie.class}, exportSchema = false, version = 1)
 public abstract class DatabaseManager extends RoomDatabase {
 
-    private static final String DB_NAME = "dma09_db";
+    private static final String DB_NAME = "dma10_db";
     private static DatabaseManager databaseManager;
 
     public static DatabaseManager getInstance(Context context)
