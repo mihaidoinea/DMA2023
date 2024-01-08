@@ -30,11 +30,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
     private ExecutorService executors;
 
+    private DatabaseManager dbManager;
+
     public MovieAdapter(MainActivity mainActivity, ArrayList<Movie> movieArrayList) {
         this.context = mainActivity;
         this.movies = movieArrayList;
         this.executors = Executors.newFixedThreadPool(5);
         this.mainActivityCallback = mainActivity;
+        this.dbManager = DatabaseManager.getInstance(mainActivity);
     }
 
     @NonNull
@@ -71,9 +74,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                MovieDao movieDao = dbManager.getMovieDao();
                 if(isChecked)
                 {
                    //save in a local database
+                    movieDao.insert(movie);
+                }
+                else
+                {
+                    movieDao.delete(movie);
                 }
             }
         });
