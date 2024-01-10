@@ -27,24 +27,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <RadioGroup
-            android:id="@+id/rgOptions"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:tooltipText="Export movie"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rbExport"
+            <RadioGroup
+                android:id="@+id/rgOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tooltipText="Export movie">
+
+                <RadioButton
+                    android:id="@+id/rbExport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Export" />
+
+                <RadioButton
+                    android:id="@+id/rbDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Display" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btnCinema"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Export" />
+                android:layout_gravity="bottom"
+                android:text="Cinemas" />
 
-            <RadioButton
-                android:id="@+id/rbDisplay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Display" />
-        </RadioGroup>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

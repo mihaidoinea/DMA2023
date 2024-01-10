@@ -94,4 +94,9 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
         movieArrayList.remove(position);
         movieAdapter.notifyItemRemoved(position);
     }
+
+    @Override
+    public void onMovieItemMapShow(int position) {
+
+    }
 }

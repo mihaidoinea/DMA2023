@@ -74,6 +74,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
                 mainActivityCallback.onMovieItemDeleted(position);
             }
         });
+        holder.btnCinemas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = movies.indexOf(movie);
+                mainActivityCallback.onMovieItemMapShow(position);
+            }
+        });
+
 //        int identifier = context.getResources().getIdentifier("superman", "drawable", context.getPackageName());
 //        holder.ivPoster.setImageResource(identifier);
     }
@@ -106,9 +114,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         protected RatingBar rbRating;
         protected RadioGroup rgOptions;
         protected ImageView ivPoster;
-
         protected Button btnDelete;
 
+        protected Button btnCinemas;
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
@@ -117,6 +125,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             rgOptions = itemView.findViewById(R.id.rgOptions);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnCinemas = itemView.findViewById(R.id.btnCinema);
             rgOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
