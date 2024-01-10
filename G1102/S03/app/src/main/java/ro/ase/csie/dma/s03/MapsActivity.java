@@ -2,6 +2,7 @@ package ro.ase.csie.dma.s03;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +30,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+
+        Bundle extras = intent.getExtras();
+
+        Movie  movie = extras.getParcelable("keyMovie");
     }
 
     /**

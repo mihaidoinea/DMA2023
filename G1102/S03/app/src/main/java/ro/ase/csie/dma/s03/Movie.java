@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Movie implements Parcelable {
@@ -20,6 +21,8 @@ public class Movie implements Parcelable {
     float rating;
     AgeLimitEnum ageLimit;
     String posterUrl;
+
+    List<Cinema> cinemas;
 
     @Override
     public boolean equals(Object o) {
@@ -109,5 +112,42 @@ public class Movie implements Parcelable {
         dest.writeFloat(rating);
         dest.writeLong(release.getTime());
         dest.writeString(posterUrl);
+    }
+
+    class Cinema
+    {
+        private String name;
+        private float latitude;
+        private float longitude;
+
+        public Cinema(String name, float latitude, float longitude) {
+            this.name = name;
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public float getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(float latitude) {
+            this.latitude = latitude;
+        }
+
+        public float getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(float longitude) {
+            this.longitude = longitude;
+        }
     }
 }
