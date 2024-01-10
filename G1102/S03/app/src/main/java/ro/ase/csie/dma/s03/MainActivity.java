@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements IMovieItemEvents 
 
     @Override
     public void onMovieItemMapShow(int position) {
-
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        Movie movie = movieArrayList.get(position);
+        intent.putExtra("keyMovie", movie);
+        startActivity(intent);
     }
 }
