@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Movie implements Parcelable {
@@ -20,6 +21,8 @@ public class Movie implements Parcelable {
     ParentalApprovalEnum approval;
     Date release;
     String posterUrl;
+
+    List<Cinema> cinemaList;
 
     @Override
     public boolean equals(Object o) {
