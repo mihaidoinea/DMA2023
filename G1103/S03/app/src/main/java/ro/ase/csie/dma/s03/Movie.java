@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -47,6 +48,8 @@ public class Movie implements Parcelable {
         oscarWinner = in.readByte() != 0;
         release = new Date(in.readLong());
         posterUrl = in.readString();
+        cinemaList = new ArrayList<>();
+        in.readTypedList(cinemaList, Cinema.CREATOR);
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -90,6 +93,11 @@ public class Movie implements Parcelable {
         this.approval = approval;
         this.release = release;
         this.posterUrl = posterUrl;
+        cinemaList = new ArrayList<>();
+        Cinema c1 = new Cinema("MoviePlex",12.3f,15.3f);
+        Cinema c2 = new Cinema("MultiPlex",12.2f, 14.2f);
+        cinemaList.add(c1);
+        cinemaList.add(c2);
     }
 
     @Override
@@ -108,5 +116,6 @@ public class Movie implements Parcelable {
         dest.writeByte((byte) (oscarWinner ? 1 : 0));
         dest.writeLong(release.getTime());
         dest.writeString(posterUrl);
+        dest.writeTypedList(cinemaList);
     }
 }
