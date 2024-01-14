@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements IMovieItemEvents {
 
+    private static String sendUrl = "https://webhook.site/7a5ed02f-9890-4f77-8938-4c5af1f16e52";
     private static final String TAG = MainActivity.class.getSimpleName();
     static ArrayList<Movie> movieArrayList = new ArrayList<>();
 
